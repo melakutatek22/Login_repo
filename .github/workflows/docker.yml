@@ -1,34 +1,26 @@
-name: Build and Push Docker Image
+name: Docker Build and Push
 
 on:
   push:
     branches: [ main ]
 
-env:
-  DOCKERHUB_USERNAME: melaku8080
-  IMAGE_NAME: html-login-page
-  password: Dockerhub.com
-   
-
-
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.melaku8080 }}
-          password: ${{ secrets.Dockerhub.com }}
-
-      - name: Build Docker image
-        run: |
-          docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest .
-
-      - name: Push to Docker Hub
-        run: |
-          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./html-login-page
+          push: true
+          tags: |
+            melaku8080/login-page:latest
+            melaku8080/login-page:${{ github.sha }}
