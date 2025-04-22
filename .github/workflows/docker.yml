@@ -7,6 +7,10 @@ on:
 env:
   DOCKERHUB_USERNAME: melaku8080
   IMAGE_NAME: html-login-page
+  password: Dockerhub.com
+   
+
+
 
 jobs:
   build-and-push:
