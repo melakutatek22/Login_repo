@@ -19,7 +19,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.melaku8080 }}
-          password: ${{ secrets.Docker.01 }}
+          password: ${{ secrets.Dockerhub.com }}
 
       - name: Build Docker image
         run: |
